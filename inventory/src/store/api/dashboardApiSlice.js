@@ -20,7 +20,7 @@ export const dashboardApi = createApi({
         if (productType) params.append("productType", productType);
         if (productLocation) params.append("productLocation", productLocation);
 
-        return { url: `/dashboard?${params.toString()}` };
+        return { url: `/api/dashboard?${params.toString()}` };
       },
     }),
   }),

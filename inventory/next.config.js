@@ -11,7 +11,7 @@ const nextConfig = {
       // ✅ New rewrite to serve images from Nginx (port 8080)
       {
         source: "/uploads/:path*",
-        destination: "http://localhost:8080/uploads/:path*",
+        destination: "http://localhost/uploads/:path*",
       },
     ];
   },

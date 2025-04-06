@@ -7,41 +7,41 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({
-        url: "/auth/login",
+        url: "/api/auth/login",
         method: "POST",
         body: credentials,
       }),
     }),
     logout: builder.mutation({
       query: () => ({
-        url: "/auth/logout",
+        url: "/api/auth/logout",
         method: "POST",
       }),
     }),
     signup: builder.mutation({
       query: (userData) => ({
-        url: "/auth/signup",
+        url: "/api/auth/signup",
         method: "POST",
         body: userData,
       }),
     }),
     forgotPassword: builder.mutation({
       query: ({ email }) => ({
-        url: "/auth/forgot-password",
+        url: "/api/auth/forgot-password",
         method: "POST",
         body: { email },
       }),
     }),
     resetPassword: builder.mutation({
       query: ({ token, newPassword }) => ({
-        url: "/auth/reset-password",
+        url: "/api/auth/reset-password",
         method: "POST",
         body: { token, newPassword },
       }),
     }),
     verifyEmail: builder.mutation({
       query: (token) => ({
-        url: `/auth/verify-email/?token=${token}`,
+        url: `/api/auth/verify-email/?token=${token}`,
         method: "GET",
       }),
     }),

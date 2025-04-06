@@ -8,13 +8,13 @@ export const userApi = createApi({
   endpoints: (builder) => ({
     getProfile: builder.query({
       query: () => ({
-        url: "/users/get-profile",
+        url: "/api/users/get-profile",
         method: "GET",
       }),
     }),
     updateProfile: builder.mutation({
       query: (data) => ({
-        url: "/users/update-profile",
+        url: "/api/users/update-profile",
         method: "PUT",
         body: data,
       }),
@@ -27,7 +27,7 @@ export const userApi = createApi({
         sortField = "createdAt",
         sortOrder = "desc",
       }) => ({
-        url: "/users/get-users",
+        url: "/api/users/get-users",
         method: "GET",
         params: { page, limit, searchTerm, sortField, sortOrder },
       }),
@@ -42,7 +42,7 @@ export const userApi = createApi({
     }),
     getUser: builder.query({
       query: (id) => ({
-        url: "/users/get-user",
+        url: "/api/users/get-user",
         method: "GET",
         params: { id },
       }),
@@ -51,13 +51,13 @@ export const userApi = createApi({
     // Endpoint to get the user role. This is used in the dashboard to confirm user permissions.
     getUserRole: builder.query({
       query: () => ({
-        url: "/users/verify-user-role",
+        url: "/api/users/verify-user-role",
         method: "GET",
       }),
     }),
     updateUser: builder.mutation({
       query: ({ id, ...data }) => ({
-        url: "/users/update-user",
+        url: "/api/users/update-user",
         method: "PUT",
         params: { id },
         body: data,
@@ -66,7 +66,7 @@ export const userApi = createApi({
     }),
     addUser: builder.mutation({
       query: (newUser) => ({
-        url: "/users/add-user",
+        url: "/api/users/add-user",
         method: "POST",
         body: newUser,
       }),
@@ -74,7 +74,7 @@ export const userApi = createApi({
     }),
     deleteUser: builder.mutation({
       query: (id) => ({
-        url: "/users/delete-user",
+        url: "/api/users/delete-user",
         method: "DELETE",
         params: { id },
       }),

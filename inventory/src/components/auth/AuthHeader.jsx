@@ -10,16 +10,12 @@ const AuthNavbar = () => {
     <nav className="sticky top-0 bg-gradient-to-r from-[#0F172A] to-[#0F4C75] shadow-lg z-50">
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center py-4">
         {/* Company Logo */}
-        <Link href="/" className="text-2xl font-bold">
-          <Image
-            src="/logo.png"
-            alt="Company Logo"
-            className="h-10 w-auto"
-            width={200}
-            height={50}
-          />
+        <Link
+          href="/"
+          className="text-2xl sm:text-3xl font-extrabold text-[#F8D210] tracking-tight"
+        >
+          Kaliget
         </Link>
-
         {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-8 flex-1 justify-end">
           <li>

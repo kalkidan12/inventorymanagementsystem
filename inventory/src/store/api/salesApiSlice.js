@@ -9,7 +9,7 @@ export const salesApi = createApi({
   endpoints: (builder) => ({
     processSale: builder.mutation({
       query: (salesData) => ({
-        url: `/sales/sell`,
+        url: `/api/sales/sell`,
         method: "POST",
         body: salesData,
       }),
@@ -21,7 +21,7 @@ export const salesApi = createApi({
 
     getSalesTotal: builder.query({
       query: (filters) => ({
-        url: `/sales/total`,
+        url: `/api/sales/total`,
         method: "GET",
         params: filters,
       }),
@@ -53,7 +53,7 @@ export const salesApi = createApi({
         if (productType) params.append("productType", productType);
 
         return {
-          url: `/sales/report?${params.toString()}`,
+          url: `/api/sales/report?${params.toString()}`,
           method: "GET",
         };
       },
@@ -62,14 +62,14 @@ export const salesApi = createApi({
 
     getSalesAnalytics: builder.query({
       query: () => ({
-        url: `/sales/analytics`,
+        url: `/api/sales/analytics`,
         method: "GET",
       }),
     }),
 
     getBestSellingProducts: builder.query({
       query: () => ({
-        url: `/sales/best-sellers`,
+        url: `/api/sales/best-sellers`,
         method: "GET",
       }),
     }),

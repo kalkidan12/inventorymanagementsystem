@@ -20,7 +20,7 @@ export const productApi = createApi({
         productBrand,
         productLocation, // ✅ New filter support
       }) => ({
-        url: `/product/list`,
+        url: `/api/product/list`,
         method: "GET",
         params: {
           page,
@@ -50,7 +50,7 @@ export const productApi = createApi({
 
     addProduct: builder.mutation({
       query: (newProduct) => ({
-        url: `/product/create`,
+        url: `/api/product/create`,
         method: "POST",
         body: newProduct,
       }),
@@ -58,7 +58,7 @@ export const productApi = createApi({
     }),
     updateProduct: builder.mutation({
       query: ({ id, ...updatedProduct }) => ({
-        url: `/product/update`,
+        url: `/api/product/update`,
         method: "PUT",
         body: { id, ...updatedProduct },
       }),
@@ -66,7 +66,7 @@ export const productApi = createApi({
     }),
     deleteProduct: builder.mutation({
       query: (id) => ({
-        url: `/product/delete`,
+        url: `/api/product/delete`,
         method: "DELETE",
         body: { id },
       }),
@@ -74,14 +74,14 @@ export const productApi = createApi({
     }),
     getProductTypes: builder.query({
       query: () => ({
-        url: `/product/get-product-types`,
+        url: `/api/product/get-product-types`,
         method: "GET",
       }),
       providesTags: [{ type: "Product", id: "LIST" }],
     }),
     getProductWarehouses: builder.query({
       query: () => ({
-        url: `/product/get-product-locations`,
+        url: `/api/product/get-product-locations`,
         method: "GET",
       }),
       providesTags: [{ type: "Product", id: "LIST" }],
@@ -89,7 +89,7 @@ export const productApi = createApi({
     // Use a lazy query for barcode generation
     generateBarcode: builder.query({
       query: () => ({
-        url: `/product/generate-barcode`,
+        url: `/api/product/generate-barcode`,
         method: "GET",
       }),
     }),
