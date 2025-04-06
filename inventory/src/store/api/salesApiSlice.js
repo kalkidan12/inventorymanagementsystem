@@ -1,4 +1,4 @@
-// ✅ Updated: /store/api/salesApiSlice.js
+// ✅ Updated: /store/salesApiSlice.js
 import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQueryWithAuth from "../utils/baseQueryWithAuth";
 
@@ -9,7 +9,7 @@ export const salesApi = createApi({
   endpoints: (builder) => ({
     processSale: builder.mutation({
       query: (salesData) => ({
-        url: `/api/sales/sell`,
+        url: `/sales/sell`,
         method: "POST",
         body: salesData,
       }),
@@ -21,7 +21,7 @@ export const salesApi = createApi({
 
     getSalesTotal: builder.query({
       query: (filters) => ({
-        url: `/api/sales/total`,
+        url: `/sales/total`,
         method: "GET",
         params: filters,
       }),
@@ -53,7 +53,7 @@ export const salesApi = createApi({
         if (productType) params.append("productType", productType);
 
         return {
-          url: `/api/sales/report?${params.toString()}`,
+          url: `/sales/report?${params.toString()}`,
           method: "GET",
         };
       },
@@ -62,14 +62,14 @@ export const salesApi = createApi({
 
     getSalesAnalytics: builder.query({
       query: () => ({
-        url: `/api/sales/analytics`,
+        url: `/sales/analytics`,
         method: "GET",
       }),
     }),
 
     getBestSellingProducts: builder.query({
       query: () => ({
-        url: `/api/sales/best-sellers`,
+        url: `/sales/best-sellers`,
         method: "GET",
       }),
     }),
