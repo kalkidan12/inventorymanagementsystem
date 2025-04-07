@@ -9,11 +9,21 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-      <HeroSection />
-      <WhyChooseUs />
-      <Features />
-      <CallToAction />
-      <ContactUs />
+      <section id="home">
+        <HeroSection />
+      </section>
+
+      <section id="why-choose-us">
+        <WhyChooseUs />
+      </section>
+
+      <section id="powerful-features">
+        <Features />
+      </section>
+
+      <section id="contact-us">
+        <ContactUs />
+      </section>
     </div>
   );
 }

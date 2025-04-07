@@ -1,14 +1,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 const NavBar = () => {
   const [navOpen, setNavOpen] = useState(false);
-
-  const scrollToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setNavOpen(false);
-  };
+  const router = useRouter();
 
   const navItems = [
     { label: "Home", id: "home" },
@@ -16,6 +13,23 @@ const NavBar = () => {
     { label: "Powerful Features", id: "powerful-features" },
     { label: "Contact Us", id: "contact-us" },
   ];
+
+  const handleNavClick = (id) => {
+    const navbarHeight = document.querySelector("nav")?.offsetHeight || 60;
+
+    if (router.pathname === "/") {
+      const el = document.getElementById(id);
+      if (el) {
+        const scrollTop =
+          el.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+        window.scrollTo({ top: scrollTop, behavior: "smooth" });
+      }
+    } else {
+      router.push(`/#${id}`);
+    }
+
+    setNavOpen(false);
+  };
 
   return (
     <nav className="sticky top-0 z-50 bg-[#0F172A] shadow-md">
@@ -27,12 +41,12 @@ const NavBar = () => {
           Kaliget
         </Link>
 
-        {/* Desktop Nav */}
+        {/* Desktop Menu */}
         <ul className="hidden md:flex gap-8 text-sm font-medium">
           {navItems.map(({ label, id }) => (
             <li key={id}>
               <button
-                onClick={() => scrollToSection(id)}
+                onClick={() => handleNavClick(id)}
                 className="text-[#F8D210] hover:text-white transition duration-300"
               >
                 {label}
@@ -41,12 +55,9 @@ const NavBar = () => {
           ))}
         </ul>
 
-        {/* Mobile Toggle Button */}
+        {/* Mobile Toggle */}
         <div className="md:hidden">
-          <button
-            aria-label="Toggle navigation menu"
-            onClick={() => setNavOpen((prev) => !prev)}
-          >
+          <button onClick={() => setNavOpen((prev) => !prev)}>
             {navOpen ? (
               <FaTimes size={24} className="text-[#F8D210]" />
             ) : (
@@ -56,20 +67,38 @@ const NavBar = () => {
         </div>
       </div>
 
-      {/* Mobile Nav Menu */}
+      {/* Mobile Menu */}
       {navOpen && (
-        <div className="md:hidden bg-[#0F172A] transition-all duration-300 py-4 px-6 space-y-4 text-center">
+        <div className="md:hidden bg-[#0F172A] px-4 pb-6 pt-2 animate-slideDown space-y-3">
           {navItems.map(({ label, id }) => (
             <button
               key={id}
-              onClick={() => scrollToSection(id)}
-              className="block w-full text-[#F8D210] text-base font-semibold hover:text-white transition"
+              onClick={() => handleNavClick(id)}
+              className="block w-full bg-[#1E293B] text-[#F8D210] text-base font-semibold rounded-lg py-3 hover:bg-[#334155] transition"
             >
               {label}
             </button>
           ))}
         </div>
       )}
+
+      {/* Animation Style */}
+      <style jsx>{`
+        .animate-slideDown {
+          animation: slideDown 0.25s ease-out;
+        }
+
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0px);
+          }
+        }
+      `}</style>
     </nav>
   );
 };
