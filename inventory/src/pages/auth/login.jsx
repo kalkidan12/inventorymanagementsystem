@@ -1,7 +1,7 @@
 import React from "react";
 import LoginForm from "@/components/auth/LoginForm";
-import AuthNavbar from "@/components/auth/AuthHeader";
 import Head from "next/head";
+import NavBar from "@/components/navbar/NavBar";
 
 const LoginPage = () => {
   return (
@@ -13,7 +13,7 @@ const LoginPage = () => {
           content="Log in to your inventory management system to track your products, sales, and reports efficiently."
         />
       </Head>
-      <AuthNavbar />
+      <NavBar />
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
         <LoginForm />
       </div>

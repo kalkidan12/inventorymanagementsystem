@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import VerificationSuccess from "../../components/auth/VerificationSuccess";
 import { useRouter } from "next/router";
-import AuthNavbar from "@/components/auth/AuthHeader";
 import Head from "next/head";
+import NavBar from "@/components/navbar/NavBar";
 
 const VerificationSuccessfulPage = () => {
   const router = useRouter();
@@ -22,7 +22,7 @@ const VerificationSuccessfulPage = () => {
         <title>Verification Successful</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <AuthNavbar />
+      <NavBar />
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
         <VerificationSuccess />
       </div>

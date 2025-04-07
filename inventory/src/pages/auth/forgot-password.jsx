@@ -1,7 +1,7 @@
 import React from "react";
 import ForgotPasswordForm from "@/components/auth/ForgotPasswordForm";
-import AuthNavbar from "@/components/auth/AuthHeader";
 import Head from "next/head";
+import NavBar from "@/components/navbar/NavBar";
 
 const ForgotPasswordPage = () => {
   return (
@@ -10,7 +10,7 @@ const ForgotPasswordPage = () => {
         <title>Forgot Password | Inventory Management</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <AuthNavbar />
+      <NavBar />
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
         <ForgotPasswordForm />
       </div>

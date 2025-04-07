@@ -1,7 +1,7 @@
 import React from "react";
 import VerifyAccount from "../../components/auth/VerifyAccount";
-import AuthNavbar from "@/components/auth/AuthHeader";
 import Head from "next/head";
+import NavBar from "@/components/navbar/NavBar";
 
 const VerifyAccountPage = () => {
   return (
@@ -10,7 +10,7 @@ const VerifyAccountPage = () => {
         <title>Verify Your Account</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <AuthNavbar />
+      <NavBar />
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
         <VerifyAccount />
       </div>

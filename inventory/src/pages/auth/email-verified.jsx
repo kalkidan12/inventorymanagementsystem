@@ -1,7 +1,7 @@
 import React from "react";
 import EmailVerified from "../../components/auth/EmailVerified";
-import AuthNavbar from "@/components/auth/AuthHeader";
 import Head from "next/head";
+import NavBar from "@/components/navbar/NavBar";
 
 const EmailVerifiedPage = () => {
   return (
@@ -10,7 +10,7 @@ const EmailVerifiedPage = () => {
         <title>Email Verified Successfully</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <AuthNavbar />
+      <NavBar />
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
         <EmailVerified />
       </div>

@@ -1,5 +1,5 @@
-import AuthNavbar from "@/components/auth/AuthHeader";
 import ResetPasswordForm from "@/components/auth/ResetPasswordForm";
+import NavBar from "@/components/navbar/NavBar";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
@@ -17,7 +17,7 @@ const ResetPasswordPage = () => {
         <title>Reset Password | Inventory Management</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <AuthNavbar />
+      <NavBar />
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
         <ResetPasswordForm token={token} />
       </div>
