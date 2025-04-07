@@ -35,16 +35,9 @@ const LoginForm = () => {
         return;
       }
       dispatch(setCredentials({ user, accessToken }));
-      // Role-based redirection
-      if (user.role === "admin") {
-        router.replace("/admin");
-      } else if (user.role === "company_owner") {
-        router.replace("/dashboard");
-      } else if (user.role === "sales") {
-        router.replace("/sales/pos");
-      } else {
-        router.replace("/");
-      }
+
+      router.replace("/menu");
+
       toast.success("Login successful!", { position: "top-right" });
     } catch (error) {
       toast.error(error?.data?.message || "Login failed", {

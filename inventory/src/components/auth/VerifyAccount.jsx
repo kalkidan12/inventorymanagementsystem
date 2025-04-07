@@ -14,12 +14,6 @@ const VerifyAccount = () => {
         We've sent a verification email to your inbox. Please check your email
         to complete the verification process.
       </p>
-      <button
-        onClick={redirectToGmail}
-        className="bg-blue-500 text-white py-3 px-4 rounded w-full font-bold mt-2"
-      >
-        Open Gmail
-      </button>
     </div>
   );
 };

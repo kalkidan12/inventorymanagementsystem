@@ -28,7 +28,7 @@ const VerificationSuccess = () => {
           // Show success toast and redirect
           toast.success("Verification successful! Redirecting...");
           setTimeout(() => {
-            router.replace("/dashboard");
+            router.replace("/login");
           }, 3000);
         })
         .catch((error) => {
