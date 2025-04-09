@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   FaThLarge,
-  FaListAlt,
   FaChartBar,
   FaUsers,
   FaUserCog,

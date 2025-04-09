@@ -76,7 +76,7 @@ const Dashboard = () => {
           value={`${totalStockValue.toFixed(2)} Birr`}
         />
         <StatCard title="Sales Users" value={totalSalesUsers} />
-        <StatCard title="Locations/warehouses" value={totalLocations} />
+        <StatCard title="Locations" value={totalLocations} />
       </div>
 
       {/* 🔹 Filters */}
