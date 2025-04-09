@@ -43,9 +43,7 @@ const Users = () => {
     password: "",
     role: "company_owner",
     companyName: "",
-    isActive: false,
     emailVerified: false,
-    inventoryTrialStarted: false,
     inventorySubscribed: false,
   });
 
@@ -156,9 +154,7 @@ const Users = () => {
         password: "",
         role: "company_owner",
         companyName: "",
-        isActive: false,
         emailVerified: false,
-        inventoryTrialStarted: false,
         inventorySubscribed: false,
       });
       setShowAddForm(false);
@@ -271,12 +267,7 @@ const Users = () => {
             </button>
           </div>
 
-          {[
-            "isActive",
-            "emailVerified",
-            "inventoryTrialStarted",
-            "inventorySubscribed",
-          ].map((field) => (
+          {["emailVerified", "inventorySubscribed"].map((field) => (
             <div key={field}>
               <label className="block text-sm font-medium mb-1">{field}</label>
               <select
@@ -320,9 +311,7 @@ const Users = () => {
                 "phoneNumber",
                 "companyName",
                 "role",
-                "isActive",
                 "emailVerified",
-                "inventoryTrialStarted",
                 "inventoryTrialStartedDate",
                 "inventoryTrialEnddDate",
                 "inventorySubscribed",
@@ -363,9 +352,7 @@ const Users = () => {
                     "phoneNumber",
                     "companyName",
                     "role",
-                    "isActive",
                     "emailVerified",
-                    "inventoryTrialStarted",
                     "inventoryTrialStartedDate",
                     "inventoryTrialEnddDate",
                     "inventorySubscribed",

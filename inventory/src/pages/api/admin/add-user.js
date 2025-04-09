@@ -24,6 +24,8 @@ export default async function handler(req, res) {
         return res.status(400).json({ message: "All fields are required." });
       }
 
+      const creator = req.user;
+
       if (!["admin", "company_owner"].includes(role)) {
         return res.status(400).json({ message: "Invalid role." });
       }
@@ -40,8 +42,7 @@ export default async function handler(req, res) {
           phoneNumber,
           role,
           companyName,
-          emailVerified: true,
-          isActive: true,
+          invitedBy: creator._id,
         });
         return res.status(201).json({
           message: "User created successfully.",

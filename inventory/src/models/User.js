@@ -35,14 +35,11 @@ const UserSchema = new mongoose.Schema(
       default: null,
     },
 
-    isActive: { type: Boolean, default: false },
-    emailVerified: { type: Boolean, default: false },
+    emailVerified: { type: Boolean, default: true }, //temporarily this is true because email sending server is slow
 
     // 🎯 Trial & Subscription (company_owner only)
-    inventoryTrialStarted: { type: Boolean, default: false },
     inventoryTrialStartedDate: { type: Date, default: null },
     inventoryTrialEnddDate: { type: Date, default: null },
-
     inventorySubscribed: { type: Boolean, default: false },
 
     // 🔐 Email verification / Reset
@@ -69,7 +66,6 @@ UserSchema.methods.comparePassword = async function (enteredPassword) {
 UserSchema.pre("save", function (next) {
   if (this.isNew && this.role === "company_owner") {
     const now = new Date();
-    this.inventoryTrialStarted = true;
     this.inventoryTrialStartedDate = now;
     this.inventoryTrialEnddDate = new Date(
       now.getTime() + 7 * 24 * 60 * 60 * 1000

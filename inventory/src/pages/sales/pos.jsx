@@ -17,6 +17,7 @@ import {
   useLazyGetProductByBarcodeQuery,
   useProcessSaleMutation,
 } from "@/store/api/salesApiSlice";
+import { useGetProfileQuery } from "@/store/api/userApiSlice";
 
 const LOCAL_CART_KEY = "pos_cart_data";
 
@@ -30,16 +31,46 @@ const POS = () => {
   const [scannerActive, setScannerActive] = useState(false);
   const [checkedPrice, setCheckedPrice] = useState(null);
   const [isAuthorized, setIsAuthorized] = useState(false);
+  const [showTrialBanner, setShowTrialBanner] = useState(true);
+  const [blockAccess, setBlockAccess] = useState(false);
 
+  const { data: profileData, error, isLoading } = useGetProfileQuery();
   const [triggerFetchProduct] = useLazyGetProductByBarcodeQuery();
   const [processSale, { isLoading: isProcessing }] = useProcessSaleMutation();
+
+  const getDaysLeft = (endDate) => {
+    if (!endDate) return 0;
+    const now = new Date();
+    const end = new Date(endDate);
+    const diff = Math.ceil((end - now) / (1000 * 60 * 60 * 24));
+    return diff > 0 ? diff : 0;
+  };
+
+  const daysLeft = getDaysLeft(profileData?.user?.inventoryTrialEnddDate);
+
+  useEffect(() => {
+    if (!isLoading) {
+      const user = profileData?.user;
+      if (error || !user || user.role !== "company_owner") {
+        router.replace("/");
+      } else {
+        const now = new Date();
+        const trialEnded =
+          user?.inventoryTrialEnddDate &&
+          new Date(user.inventoryTrialEnddDate) < now;
+        const notSubscribed = !user?.inventorySubscribed;
+        if (trialEnded && notSubscribed) {
+          setBlockAccess(true);
+        }
+        setIsAuthorized(true);
+      }
+    }
+  }, [profileData, error, isLoading, router]);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
       router.replace("/");
-    } else {
-      setIsAuthorized(true);
     }
 
     const blockNav = () => {
@@ -104,26 +135,15 @@ const POS = () => {
   }, [scannerActive]);
 
   useEffect(() => {
-    const input = barcodeInputRef.current;
+    const timer = setTimeout(() => {
+      barcodeInputRef.current?.focus();
+    }, 100); // delay helps ensure DOM is ready
 
-    if (!input) return;
-
-    const handleBlur = () => {
-      // Give time for potential click actions to complete
-      setTimeout(() => {
-        if (document.activeElement !== input) {
-          input.focus();
-        }
-      }, 100);
-    };
-
-    input.addEventListener("blur", handleBlur);
-    return () => {
-      input.removeEventListener("blur", handleBlur);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
-  const handleFetchProduct = async (inputBarcode, isScanner = false) => {
+  const handleFetchProduct = async (inputBarcode) => {
+    barcodeInputRef.current?.focus();
     try {
       const res = await triggerFetchProduct(inputBarcode);
       const product = res?.data;
@@ -154,14 +174,15 @@ const POS = () => {
   };
 
   const handleAddToCart = () => {
+    barcodeInputRef.current?.focus();
     if (!barcode.trim()) return;
     handleFetchProduct(barcode.trim());
     setBarcode("");
     setCheckedPrice(null);
-    barcodeInputRef.current?.focus();
   };
 
   const handleCheckPrice = async () => {
+    barcodeInputRef.current?.focus();
     if (!barcode.trim()) return;
     try {
       const res = await triggerFetchProduct(barcode.trim());
@@ -184,6 +205,7 @@ const POS = () => {
   };
 
   const handleProcessSale = async () => {
+    barcodeInputRef.current?.focus();
     if (cart.length === 0) return toast.warning("🛒 Cart is empty");
 
     const salesItems = cart.map((item) => ({
@@ -206,6 +228,7 @@ const POS = () => {
   };
 
   const updateItemQuantity = (ProductID, newQty) => {
+    barcodeInputRef.current?.focus();
     if (newQty > 0) {
       dispatch(updateQuantity({ ProductID, ProductQuantity: newQty }));
     }
@@ -251,7 +274,85 @@ const POS = () => {
             Logout
           </button>
         </header>
+        {/* 🎯 Trial Notification */}
+        {showTrialBanner &&
+          !blockAccess &&
+          !profileData?.user?.inventorySubscribed && (
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-3">
+              <div className="bg-yellow-100 border border-yellow-300 text-yellow-900 rounded-lg p-3 relative shadow-lg">
+                <div className="flex justify-between items-start">
+                  <p className="text-sm sm:text-base font-medium flex-1 pr-2">
+                    🎉 You’re on a <strong>7-day free trial</strong>.{" "}
+                    <span className="text-red-600 font-semibold">
+                      {daysLeft > 0
+                        ? `${daysLeft} day${daysLeft === 1 ? "" : "s"} left`
+                        : "Trial ended"}
+                    </span>
+                    . Please contact support for a subscription:
+                    <br />
+                    <span className="text-sm block mt-1">
+                      📞{" "}
+                      <a
+                        href="tel:+251902280977"
+                        className="text-blue-700 underline"
+                      >
+                        +251902280977
+                      </a>{" "}
+                      | 📧{" "}
+                      <a
+                        href="mailto:kaligetservice@gmail.com"
+                        className="text-blue-700 underline"
+                      >
+                        kaligetservice@gmail.com
+                      </a>
+                    </span>
+                  </p>
+                  <button
+                    onClick={() => setShowTrialBanner(false)}
+                    className="text-yellow-900 hover:text-yellow-600 ml-3 text-lg"
+                    aria-label="Dismiss"
+                  >
+                    ❌
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
 
+        {/* 🔒 Block Access Overlay */}
+        {blockAccess && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+            <div className="bg-white p-6 sm:p-8 rounded-lg shadow-xl max-w-md text-center">
+              <h2 className="text-2xl font-semibold text-red-600 mb-4">
+                Access Blocked
+              </h2>
+              <p className="text-gray-700 mb-4">
+                Your free trial has ended and your subscription is not active.
+                Please contact support to regain access.
+              </p>
+              <div className="text-left text-sm text-gray-600">
+                <p>
+                  <strong>📞 Phone:</strong>{" "}
+                  <a
+                    href="tel:+251902280977"
+                    className="text-blue-600 underline"
+                  >
+                    +251902280977
+                  </a>
+                </p>
+                <p>
+                  <strong>📧 Email:</strong>{" "}
+                  <a
+                    href="mailto:kaligetservice@gmail.com"
+                    className="text-blue-600 underline"
+                  >
+                    kaligetservice@gmail.com
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
         <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl p-6">
           <h2 className="text-3xl font-bold text-center mb-6 text-blue-700">
             Point of Sale (POS)

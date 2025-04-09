@@ -106,7 +106,6 @@ const DashboardPage = () => {
           {/* 🎯 Trial Notification */}
           {showTrialBanner &&
             !blockAccess &&
-            profileData?.user?.inventoryTrialStarted &&
             !profileData?.user?.inventorySubscribed && (
               <div className="absolute top-0 left-0 right-0 z-30 px-4 sm:px-8">
                 <div className="bg-yellow-100 border border-yellow-300 text-yellow-900 rounded-lg p-3 mt-1 shadow-lg">
