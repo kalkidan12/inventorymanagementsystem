@@ -23,7 +23,7 @@ const AdminSidebar = ({ setSelectedPage, sidebarOpen, userRole }) => {
   const menuItems = [
     { name: "Dashboard", icon: <FaThLarge /> },
     { name: "Users", icon: <FaUsers /> },
-    { name: "Notifications", icon: <FaThLarge /> },
+    { name: "Messages", icon: <FaThLarge /> },
     { name: "My Account", icon: <FaUserCog /> },
   ];
 

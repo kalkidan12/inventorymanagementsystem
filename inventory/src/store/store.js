@@ -9,6 +9,7 @@ import { userApi } from "./api/userApiSlice";
 import authReducer from "./slices/authSlice";
 import posReducer from "./slices/posSlice";
 import { adminApi } from "./api/adminApiSlice";
+import { messageApi } from "./api/messageApiSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     [salesApi.reducerPath]: salesApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [adminApi.reducerPath]: adminApi.reducer,
+    [messageApi.reducerPath]: messageApi.reducer,
     auth: authReducer,
     pos: posReducer,
   },
@@ -28,7 +30,8 @@ export const store = configureStore({
       dashboardApi.middleware,
       salesApi.middleware,
       userApi.middleware,
-      adminApi.middleware
+      adminApi.middleware,
+      messageApi.middleware
     ),
 });
 

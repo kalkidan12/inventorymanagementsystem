@@ -24,7 +24,7 @@
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
-    "express-rate-limit": "^7.4.0",
+    "express-rate-limit": "^7.5.0",
     "formidable": "^3.5.2",
     "formik": "^2.4.6",
     "framer-motion": "^12.5.0",
@@ -32,6 +32,7 @@
     "html-react-parser": "^5.1.16",
     "html5-qrcode": "^2.3.8",
     "jsonwebtoken": "^9.0.2",
+    "lru-cache": "^11.1.0",
     "lucide-react": "^0.482.0",
     "mime-types": "^3.0.1",
     "moment": "^2.30.1",
@@ -53,6 +54,8 @@
     "rehype-react": "^8.0.0",
     "sharp": "^0.33.5",
     "slugify": "^1.6.6",
+    "util": "^0.12.5",
+    "validator": "^13.15.0",
     "yup": "^1.6.1"
   },
   "devDependencies": {

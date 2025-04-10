@@ -37,9 +37,13 @@ const UserSchema = new mongoose.Schema(
 
     emailVerified: { type: Boolean, default: true }, //temporarily this is true because email sending server is slow
 
-    // 🎯 Trial & Subscription (company_owner only)
+    // 🎯 Trial (company_owner only)
     inventoryTrialStartedDate: { type: Date, default: null },
     inventoryTrialEnddDate: { type: Date, default: null },
+
+    // Subscription (company_owner only)
+    lastSubscriptionDate: { type: Date, default: null },
+    subscriptionEndDate: { type: Date, default: null },
     inventorySubscribed: { type: Boolean, default: false },
 
     // 🔐 Email verification / Reset

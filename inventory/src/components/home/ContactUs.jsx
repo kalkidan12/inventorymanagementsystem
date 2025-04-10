@@ -8,6 +8,7 @@ import {
   FaPhone,
 } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
+import { useSendContactMessageMutation } from "@/store/api/messageApiSlice";
 import "react-toastify/dist/ReactToastify.css";
 
 const ContactUs = () => {
@@ -16,7 +17,9 @@ const ContactUs = () => {
   const [subject, setSubject] = useState("");
   const [isSending, setIsSending] = useState(false);
 
-  const handleContactSubmit = (e) => {
+  const [sendContactMessage] = useSendContactMessageMutation();
+
+  const handleContactSubmit = async (e) => {
     e.preventDefault();
     if (!contactEmail || !contactMessage || !subject) {
       toast.error("Please fill out all fields before sending.", {
@@ -25,18 +28,31 @@ const ContactUs = () => {
       return;
     }
 
-    setIsSending(true);
-    window.location.href = `mailto:kaligetservice@gmail.com?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(contactMessage)}%0A%0AFrom: ${contactEmail}`;
+    try {
+      setIsSending(true);
+      await sendContactMessage({
+        email: contactEmail,
+        subject,
+        message: contactMessage,
+      }).unwrap();
 
-    setTimeout(() => {
-      setIsSending(false);
+      toast.success("Message sent successfully!", {
+        position: "top-right",
+      });
+
       setContactEmail("");
       setContactMessage("");
       setSubject("");
-      toast.success("Message sent successfully!", { position: "top-right" });
-    }, 2000);
+    } catch (error) {
+      toast.error(
+        error?.data?.message || "Failed to send message. Please try again.",
+        {
+          position: "top-right",
+        }
+      );
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -46,50 +62,48 @@ const ContactUs = () => {
     >
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8">
         {/* Left: Contact Form */}
-        <div className="flex-1 bg-white text-gray-900 p-8 rounded-lg shadow-lg flex flex-col justify-between">
-          <div>
-            <h2 className="text-3xl font-bold">Get in Touch</h2>
-            <p className="text-gray-600 mt-2">
-              Have questions? Fill out the form and we’ll get back to you.
-            </p>
-            <form onSubmit={handleContactSubmit} className="space-y-6 mt-6">
-              <input
-                type="email"
-                className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 outline-none"
-                placeholder="Your Email"
-                value={contactEmail}
-                onChange={(e) => setContactEmail(e.target.value)}
-                disabled={isSending}
-              />
-              <input
-                type="text"
-                className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 outline-none"
-                placeholder="Subject"
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-                disabled={isSending}
-              />
-              <textarea
-                className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 outline-none"
-                placeholder="Your Message"
-                rows="5"
-                value={contactMessage}
-                onChange={(e) => setContactMessage(e.target.value)}
-                disabled={isSending}
-              />
-              <button
-                type="submit"
-                className={`w-full bg-yellow-400 text-gray-900 font-semibold py-3 rounded-lg transition ${
-                  isSending
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "hover:bg-yellow-500"
-                }`}
-                disabled={isSending}
-              >
-                {isSending ? "Sending..." : "Send Message"}
-              </button>
-            </form>
-          </div>
+        <div className="flex-1 bg-white text-gray-900 p-8 rounded-lg shadow-lg">
+          <h2 className="text-3xl font-bold">Get in Touch</h2>
+          <p className="text-gray-600 mt-2">
+            Have questions? Fill out the form and we’ll get back to you.
+          </p>
+          <form onSubmit={handleContactSubmit} className="space-y-6 mt-6">
+            <input
+              type="email"
+              className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 outline-none"
+              placeholder="Your Email"
+              value={contactEmail}
+              onChange={(e) => setContactEmail(e.target.value)}
+              disabled={isSending}
+            />
+            <input
+              type="text"
+              className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 outline-none"
+              placeholder="Subject"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+              disabled={isSending}
+            />
+            <textarea
+              className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 outline-none"
+              placeholder="Your Message"
+              rows="5"
+              value={contactMessage}
+              onChange={(e) => setContactMessage(e.target.value)}
+              disabled={isSending}
+            />
+            <button
+              type="submit"
+              className={`w-full bg-yellow-400 text-gray-900 font-semibold py-3 rounded-lg transition ${
+                isSending
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "hover:bg-yellow-500"
+              }`}
+              disabled={isSending}
+            >
+              {isSending ? "Sending..." : "Send Message"}
+            </button>
+          </form>
         </div>
 
         {/* Right: Info Section */}

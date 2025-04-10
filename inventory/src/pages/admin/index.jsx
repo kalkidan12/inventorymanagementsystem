@@ -6,7 +6,7 @@ import AccountSetting from "@/components/admin/AccountSetting";
 import AdminDashboard from "@/components/admin/AdminDashboard";
 import AdminNavbar from "@/components/admin/AdminNavbar";
 import AdminSidebar from "@/components/admin/AdminSidebar";
-import Notifications from "@/components/admin/Notifications";
+import Messages from "@/components/admin/Messages";
 
 const DashboardPage = () => {
   const [selectedPage, setSelectedPage] = useState("Dashboard");
@@ -41,8 +41,8 @@ const DashboardPage = () => {
         return <AdminDashboard />;
       case "Users":
         return <Users />;
-      case "Notifications":
-        return <Notifications />;
+      case "Messages":
+        return <Messages />;
       case "My Account":
         return <AccountSetting />;
       default:

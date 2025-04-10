@@ -17,8 +17,6 @@ const ForgotPasswordForm = () => {
 
   const handleSubmit = async (values) => {
     try {
-      console.log("📤 Sending Forgot Password Request:", values); // Debugging
-
       // Ensure the API receives the correct payload format
       await forgotPassword({ email: values.email }).unwrap();
 
@@ -27,9 +25,6 @@ const ForgotPasswordForm = () => {
         position: "top-right",
       });
     } catch (error) {
-      console.log(error);
-      console.error("❌ Forgot Password Error:", error);
-
       toast.error(
         `Error: ${error.data?.message || "Failed to send reset email"}`,
         { position: "top-right" }

@@ -49,7 +49,6 @@ export const verifyToken = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    console.log("JWT Verification Error:", error.message);
     return res.status(401).json({ message: "Invalid or expired token." });
   }
 };
@@ -84,7 +83,6 @@ export const refreshToken = async (req, res) => {
     const accessToken = generateAccessToken({ id: user._id, role: user.role });
     res.status(200).json({ accessToken });
   } catch (error) {
-    console.log("Refresh Token Error:", error.message);
     res.status(401).json({ message: "Invalid or expired refresh token." });
   }
 };

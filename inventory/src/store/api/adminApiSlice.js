@@ -29,6 +29,12 @@ export const adminApi = createApi({
             ]
           : [{ type: "Admin", id: "LIST" }],
     }),
+    getAllUserEmails: builder.query({
+      query: () => ({
+        url: "/admin/get-all-emails",
+        method: "GET",
+      }),
+    }),
 
     getUserForAdmin: builder.query({
       query: (id) => ({
@@ -103,4 +109,5 @@ export const {
   useUpdateProfileForAdminMutation,
   useUpdateUserForAdminMutation,
   useGetAdminDashboardDataQuery,
+  useGetAllUserEmailsQuery,
 } = adminApi;

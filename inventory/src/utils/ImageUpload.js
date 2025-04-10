@@ -39,7 +39,6 @@ export const uploadImageToLocal = async (buffer, _originalName, mimeType) => {
     fs.writeFileSync(filePath, webpBuffer);
 
     const relativeUrl = `/uploads/${filename}`;
-    console.log("✅ Image saved as:", relativeUrl);
 
     return relativeUrl;
   } catch (error) {
