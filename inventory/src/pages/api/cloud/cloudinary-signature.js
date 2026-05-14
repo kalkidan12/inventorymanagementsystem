@@ -18,7 +18,7 @@ export default async function handler(req, res) {
         upload_preset,
         format, // Include the format in the signature
       },
-      process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET
+      process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
     );
 
     res.status(200).json({ signature, timestamp });

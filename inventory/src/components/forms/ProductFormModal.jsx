@@ -151,7 +151,7 @@ export default function ProductFormModal({
 
           {/* <ImageUploadLocalForm onUpload={handleImageUpload} /> */}
           <ImageToCloudForm onUpload={handleImageUpload} />
-          {imagePreview && (
+          {/* {imagePreview && (
             <div className="mt-2">
               <button
                 type="button"
@@ -180,7 +180,7 @@ export default function ProductFormModal({
                 </div>
               )}
             </div>
-          )}
+          )} */}
 
           <div className="flex gap-2">
             <input
