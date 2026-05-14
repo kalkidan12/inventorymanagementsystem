@@ -113,7 +113,7 @@ const POS = () => {
       scanner = new Html5QrcodeScanner(
         "reader",
         { fps: 10, qrbox: { width: 250, height: 250 } },
-        false
+        false,
       );
       scanner.render(
         async (decodedText) => {
@@ -123,7 +123,7 @@ const POS = () => {
             scanner.clear().catch(console.error);
           }
         },
-        (err) => console.warn("QR Error", err)
+        (err) => console.warn("QR Error", err),
       );
     }
 
@@ -161,7 +161,7 @@ const POS = () => {
           updateQuantity({
             ProductID,
             ProductQuantity: existingItem.ProductQuantity + 1,
-          })
+          }),
         );
       } else {
         dispatch(addToCart({ ...product, ProductID, ProductQuantity: 1 }));
@@ -236,7 +236,7 @@ const POS = () => {
 
   const totalQuantity = cart.reduce(
     (sum, item) => sum + item.ProductQuantity,
-    0
+    0,
   );
   const totalPrice = cart
     .reduce((sum, item) => {
@@ -469,7 +469,7 @@ const POS = () => {
                               onClick={() =>
                                 updateItemQuantity(
                                   item.ProductID,
-                                  item.ProductQuantity - 1
+                                  item.ProductQuantity - 1,
                                 )
                               }
                               className="bg-gray-200 px-2 rounded hover:bg-gray-300"
@@ -481,7 +481,7 @@ const POS = () => {
                               onClick={() =>
                                 updateItemQuantity(
                                   item.ProductID,
-                                  item.ProductQuantity + 1
+                                  item.ProductQuantity + 1,
                                 )
                               }
                               className="bg-gray-200 px-2 rounded hover:bg-gray-300"

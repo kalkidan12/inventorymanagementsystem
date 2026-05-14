@@ -31,7 +31,7 @@ const SalesSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 // **Ensure the barcode exists in the Product schema before saving**
@@ -47,8 +47,8 @@ SalesSchema.pre("save", async function (next) {
     if (!product) {
       return next(
         new Error(
-          `Invalid barcode: ${item.productBarcode} does not match any registered product.`
-        )
+          `Invalid barcode: ${item.productBarcode} does not match any registered product.`,
+        ),
       );
     }
 
@@ -58,7 +58,7 @@ SalesSchema.pre("save", async function (next) {
   // **Calculate total sale amount**
   this.totalSaleAmount = this.salesItems.reduce(
     (sum, item) => sum + item.totalItemPrice,
-    0
+    0,
   );
 
   next();

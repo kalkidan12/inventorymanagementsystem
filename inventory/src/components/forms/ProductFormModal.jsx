@@ -6,8 +6,8 @@ import {
   useGetProductWarehousesQuery,
   useLazyGenerateBarcodeQuery,
 } from "@/store/api/productApiSlice";
-// import ImageToCloudForm from "@/components/forms/ImageToCloudForm";
-import ImageUploadLocalForm from "@/components/forms/ImageUploadLocalForm";
+import ImageToCloudForm from "@/components/forms/ImageToCloudForm";
+// import ImageUploadLocalForm from "@/components/forms/ImageUploadLocalForm";
 import { FaEye, FaTimes, FaSync, FaQrcode } from "react-icons/fa";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import { toast } from "react-toastify";
@@ -75,7 +75,7 @@ export default function ProductFormModal({
           setScannerActive(false);
           toast.success("Barcode scanned successfully");
         },
-        (err) => console.error("QR Scan Error:", err)
+        (err) => console.error("QR Scan Error:", err),
       );
     }, 500);
   };
@@ -149,8 +149,8 @@ export default function ProductFormModal({
             />
           </div>
 
-          <ImageUploadLocalForm onUpload={handleImageUpload} />
-
+          {/* <ImageUploadLocalForm onUpload={handleImageUpload} /> */}
+          <ImageToCloudForm onUpload={handleImageUpload} />
           {imagePreview && (
             <div className="mt-2">
               <button
@@ -321,7 +321,7 @@ export default function ProductFormModal({
 
           <textarea
             name="ProductDescription"
-            placeholder="Description"
+            placeholder="Description or Notes"
             value={formData.ProductDescription}
             onChange={handleChange}
             className="w-full p-2 border rounded"
@@ -339,8 +339,8 @@ export default function ProductFormModal({
             {isAdding || isUpdating
               ? "Submitting..."
               : isEdit
-              ? "Update Product"
-              : "Add Product"}
+                ? "Update Product"
+                : "Add Product"}
           </button>
         </form>
 

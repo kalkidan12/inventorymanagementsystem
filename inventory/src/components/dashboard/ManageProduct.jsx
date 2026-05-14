@@ -334,7 +334,7 @@ const ManageProduct = () => {
                       product.ProductName,
                       product.ProductImage ? (
                         <img
-                          src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${product.ProductImage}`}
+                          src={`${product.ProductImage}`}
                           alt="Preview"
                           onClick={() => handleImageClick(product.ProductImage)}
                           className="h-12 w-12 object-cover rounded cursor-pointer hover:scale-105 transition"
